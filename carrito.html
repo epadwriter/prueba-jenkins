@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="Images/LogoCH.ico">
+    <title>Clean House - Servicio de Limpieza</title>
+    <meta name="description" content="Servicio especializado de limpieza y desinfección a domicilio">
+    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<script>
+    window.onload = function () {
+        // Variables
+
+
+
+        let total = 0;
+
+        const DOMcarrito = document.querySelector('#carrito');
+        const DOMitems = document.querySelector('#ServiciosImages');
+
+
+        const basejson = localStorage.getItem('carrito')
+        var baseDeDatos = ""
+        if (basejson != "") {
+            baseDeDatos = JSON.parse(basejson)
+            console.log(baseDeDatos)
+        }
+
+
+
+        function renderizarCarrito() {
+
+
+            var table = document.createElement('table');
+            table.classList.add('table');
+            document.body.appendChild(table);
+
+            var tr = document.createElement('tr');
+            table.appendChild(tr);
+
+            var tdElement = document.createElement('th');
+            tdElement.innerHTML = "producto"
+
+            var tdElement3 = document.createElement('th');
+            tdElement3.innerHTML = "tipo"
+
+            var tdElement2 = document.createElement('th');
+            tdElement2.innerHTML = "eliminar"
+
+            tr.appendChild(tdElement);
+            tr.appendChild(tdElement3);
+            tr.appendChild(tdElement2);
+
+
+            baseDeDatos.forEach((info) => {
+                console.log(info)
+                var tr = document.createElement('tr');
+                tr.setAttribute("id", "tr" + info.id);
+                table.appendChild(tr);
+                var tdElement = document.createElement('td');
+                tdElement.innerHTML = info.nombre
+
+                var tdElement2 = document.createElement('td');
+                tdElement2.innerHTML = info.tipo
+
+                var tdElement2 = document.createElement('td');
+                tdElement2.innerHTML = info.tipo
+
+
+
+                var tdElement3 = document.createElement('td');
+
+
+                const boton = document.createElement('button');
+                boton.classList.add('btn', 'btn-danger');
+                boton.textContent = 'eliminar';
+                boton.setAttribute('marcador', info.id);
+                boton.addEventListener('click', eliminar);
+                boton.tipo = "producto"
+                boton.id = info.id
+
+                tdElement3.appendChild(boton)
+
+
+
+                tr.appendChild(tdElement);
+                tr.appendChild(tdElement2);
+                tr.appendChild(tdElement3);
+            })
+
+            DOMitems.appendChild(table);
+        };
+
+
+
+
+        renderizarCarrito();
+    }
+</script>
+
+
+<body>
+    <div class="container">
+        <header>
+                        <a href="/">
+            <img id="Inicio" src="Images/LogoCleanHouse.png" alt="Logo Clean House" width="135px" height="135px">
+        </a>
+            <div class="CarroCompra">
+                <p>Iniciar Sesión</p>
+                items
+                <div class="numberCircle" id="productosencarrito" data-value="0">0</div>
+                <img src="Images/carrito.png" alt="Carro de compra" width="40px">
+            </div>
+        </header>
+
+        <nav class="navbarra">
+            <a href="#Inicio" class="nav-bar">Inicio</a>
+            <a href="#Nosotros" class="nav-bar">Nosotros</a>
+            <a href="#Servicios" class="nav-bar">Servicios</a>
+            <a href="#Productos" class="nav-bar">Productos</a>
+            <a href="#Contáctanos" class="nav-bar">Contáctanos</a>
+        </nav>
+
+
+        <section class="Servicios">
+            <h1 id="Servicios">Carrito</h1>
+            <div id="ServiciosImages">
+            </div>
+
+            <div class="container">
+                <center>
+                    <a class="btn btn-success" href="checkout.html" role="button">comprar</a>
+                </center>
+            </div>
+
+        </section>
+
+
+
+
+
+
+        <section class="Contáctanos">
+
+            <h1 id="Contáctanos">Contáctanos</h1>
+
+            <div class="cajaContacto">
+                <div class="txtb">
+                    <label>Nombre</label>
+                    <input type="text" name="" value="" placeholder="Tu nombre">
+                </div>
+
+                <div class="txtb">
+                    <label>Apellido</label>
+                    <input type="text" name="" value="" placeholder="Tu apellido">
+                </div>
+
+                <div class="txtb">
+                    <label>E-Mail</label>
+                    <input type="text" name="" value="" placeholder="Tu correo eléctronico">
+                </div>
+
+                <div class="txtb">
+                    <label>Teléfono</label>
+                    <input type="text" name="" value="" placeholder="Tu teléfono">
+                </div>
+
+                <div class="txtb">
+                    <label>Mensaje</label>
+                    <textarea></textarea>
+                </div>
+
+                <div>
+                    <a href="#" target="_parent"><button>ENVIAR</button></a>
+                </div>
+            </div>
+
+
+
+        </section>
+
+        <footer>
+            <p>Clean House - Servicio de Limpieza, todos los derechos reservados 2020®</p>
+        </footer>
+    </div>
+
+    <script>
+        let carrito = [];
+
+        function eliminar(evt) {
+            id = evt.currentTarget.id
+            console.log(evt.currentTarget.id)
+
+            var el = document.getElementById("tr" + id);
+            el.remove(); // Removes the div with the 'div-02' id
+
+            carrito = JSON.parse(localStorage.getItem('carrito'))
+
+
+            var carrofinal = carrito.filter(function (el) {
+                return el.id != id
+            });
+
+            localStorage.setItem('carrito', JSON.stringify(carrofinal))
+
+            total = 0
+            
+            carrofinal.forEach(
+                item => {
+                    total = parseInt(item.precio) + parseInt(total)
+                }
+            )
+    
+
+            localStorage.setItem('total', total)
+
+
+        }
+    </script>
+</body>
+
+</html>

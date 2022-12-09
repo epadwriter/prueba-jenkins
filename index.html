@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="Images/LogoCH.ico">
+    <title>Clean House - Servicio de Limpieza</title>
+    <meta name="description" content="Servicio especializado de limpieza y desinfección a domicilio">
+    <link rel="stylesheet" href="Styles.css">
+</head>
+
+<script>
+    const baseDeDatos = {
+        productos: [{
+                id: 1,
+                nombre: 'LIMPIDO',
+                precio: 10000,
+                imagen: 'Images/Productos1.jpg'
+            },
+            {
+                id: 2,
+                nombre: 'BLANCOX',
+                precio: 10000,
+                imagen: 'Images/Productos2.jpg'
+            },
+            {
+                id: 3,
+                nombre: 'BLANCOX',
+                precio: 10000,
+                imagen: 'Images/Productos3.jpg'
+            },
+            {
+                id: 4,
+                nombre: 'AJAX',
+                precio: 10000,
+                imagen: 'Images/Productos4.jpg'
+            },
+            {
+                id: 5,
+                nombre: 'FABULOSO',
+                precio: 10000,
+                imagen: 'Images/Productos5.jpg'
+            },
+            {
+                id: 6,
+                nombre: 'Fabuloso frescura activa',
+                precio: 10000,
+                imagen: 'Images/Productos6.jpg'
+            },
+        ],
+        servicios: [{
+                id: 1,
+                nombre: "2 horas $ 30.000",
+                precio: 30000,
+                imagen: "Images/Servicios1.jpg",
+            },
+            {
+                id: 2,
+                nombre: "4 horas $ 50.000",
+                precio: 50000,
+                imagen: "Images/Servicios2.jpg",
+            },
+            {
+                id: 3,
+                nombre: "8 horas $ 80.000",
+                precio: 80000,
+                imagen: "Images/Servicios3.jpg",
+            }
+
+        ]
+    };
+    window.onload = function () {
+        // Variables
+
+
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('usuario');
+       const user =  localStorage.getItem('usuario')
+
+        if (user && user.length > 0){
+            document.getElementById("sesion").innerHTML = "Bienvenido " + user
+        }
+        else{
+            if(myParam && myParam.length > 1) {
+          
+          localStorage.setItem('usuario', myParam);
+      }
+      else{
+          document.getElementById("sesion").innerHTML = "Iniciar sesion";
+      }
+
+        }
+
+
+        let total = 0;
+
+        const DOMcarrito = document.querySelector('#carrito');
+        const DOMitems = document.querySelector('#ProductosImages');
+        const DOMservicios = document.querySelector('#ServiciosImages');
+
+
+        function renderizarProductos() {
+            baseDeDatos.productos.forEach((info) => {
+                const nodo = document.createElement('div');
+
+                const img = document.createElement('img');
+                img.classList.add('img-productos');
+                img.setAttribute('src', info.imagen);
+
+                const p = document.createElement('p')
+                p.classList.add('card-text');
+                p.textContent = info.nombre;
+
+                const precio = document.createElement('p')
+                precio.textContent = info.precio;
+
+                const boton = document.createElement('button');
+                boton.classList.add('btn', 'btn-primary');
+                boton.textContent = 'AGREGAR';
+                boton.setAttribute('marcador', info.id);
+                boton.addEventListener('click', agregar);
+                boton.tipo = "producto"
+                boton.precio = info.precio
+                boton.imagen = info.imagen
+                boton.nombre = info.nombre
+                boton.id = info.id
+
+                nodo.appendChild(img)
+                nodo.appendChild(p)
+                nodo.appendChild(precio)
+                nodo.appendChild(boton)
+
+                DOMitems.appendChild(nodo);
+            })
+        }
+
+        function renderizarServicios() {
+            baseDeDatos.servicios.forEach((servicio) => {
+                const nodo = document.createElement('div');
+
+                const img = document.createElement('img');
+                img.classList.add('img-productos');
+                img.setAttribute('src', servicio.imagen);
+
+
+                const boton = document.createElement('button');
+                boton.classList.add('btn', 'btn-primary');
+                boton.textContent = 'AGREGAR';
+                boton.setAttribute('marcador', servicio.id);
+                boton.addEventListener('click', agregar);
+                boton.tipo = "servicio"
+                boton.precio = servicio.precio
+                boton.nombre = servicio.nombre
+                boton.imagen = servicio.imagen
+                boton.id = servicio.id
+
+                nodo.appendChild(img)
+
+                nodo.appendChild(boton)
+
+                DOMservicios.appendChild(nodo);
+            })
+        }
+
+        renderizarServicios();
+        renderizarProductos();
+        getCarrito();
+    }
+</script>
+
+
+<body>
+    <div class="container">
+        <header>
+
+            <a href="buscador.html">buscador</a>
+            <a href="/">
+                        <a href="/">
+            <img id="Inicio" src="Images/LogoCleanHouse.png" alt="Logo Clean House" width="135px" height="135px">
+
+        </a>
+            <div class="CarroCompra">
+                <a href="login.html">
+                    <p id="sesion"></p>
+                </a>
+                
+                <a href="carrito.html">
+                    items
+                    <div class="numberCircle" id="productosencarrito" data-value="0">0</div>
+                    <img src="Images/carrito.png" alt="Carro de compra" width="40px">
+                </a>
+            </div>
+        </header>
+
+        <nav class="navbarra">
+            <a href="#Inicio" class="nav-bar">Inicio</a>
+            <a href="#Nosotros" class="nav-bar">Nosotros</a>
+            <a href="#Servicios" class="nav-bar">Servicios</a>
+            <a href="#Productos" class="nav-bar">Productos</a>
+            <a href="#Contáctanos" class="nav-bar">Contáctanos</a>
+        </nav>
+
+        <section class="Inicio">
+            <h1>Necesitas ayuda con la <br> limpieza de tu casa?</h1>
+            <a href="#Contáctanos" target="_parent"><button class=".button_">COTIZAR</button></a>
+        </section>
+
+        <section class="Nosotros">
+            <h1 id="Nosotros">Nosotros</h1>
+            <img src="Images/Nosotros.png" alt="Grupo de Empleados" width="245px" height="245px">
+            <p>Lograr la completa satisfacción de nuestros clientes, cubriendo <br>
+                enteramente sus necesidades de limpieza, higiene y sanitación <br>
+                con el mejor servicio y calidad, teniendo siempre como prioridad <br>
+                el cuidado y el ambiente, la salud de los usuarios y fomentando <br>
+                la cultura de salud mediante la limpieza <br>
+            </p>
+        </section>
+
+        <section class="Servicios">
+            <h1 id="Servicios">Servicios</h1>
+            <div id="ServiciosImages">
+            </div>
+        </section>
+
+        <section class="Productos">
+            <h1 id="Productos">Productos</h1>
+            <div id="ProductosImages">
+
+            </div>
+        </section>
+
+        <section class="Contáctanos">
+
+            <h1 id="Contáctanos">Contáctanos</h1>
+
+            <div class="cajaContacto">
+                <div class="txtb">
+                    <label>Nombre</label>
+                    <input type="text" name="" value="" placeholder="Tu nombre">
+                </div>
+
+                <div class="txtb">
+                    <label>Apellido</label>
+                    <input type="text" name="" value="" placeholder="Tu apellido">
+                </div>
+
+                <div class="txtb">
+                    <label>E-Mail</label>
+                    <input type="text" name="" value="" placeholder="Tu correo eléctronico">
+                </div>
+
+                <div class="txtb">
+                    <label>Teléfono</label>
+                    <input type="text" name="" value="" placeholder="Tu teléfono">
+                </div>
+
+                <div class="txtb">
+                    <label>Mensaje</label>
+                    <textarea></textarea>
+                </div>
+
+                <div>
+                    <a href="#" target="_parent"><button>ENVIAR</button></a>
+                </div>
+            </div>
+
+            <a class="btn btn-primary" href="checkout.html" role="button">Link</a>
+
+        </section>
+
+        <footer>
+            <p>Clean House - Servicio de Limpieza, todos los derechos reservados 2020®</p>
+        </footer>
+    </div>
+
+    <script>
+        var carrito = [];
+        function agregar(evt) {
+
+            carrito = JSON.parse(localStorage.getItem('carrito'))
+            if (carrito == null) {
+                carrito = [];
+            }
+            nuevoitem = {}
+            nuevoitem.id = uuidv4()
+            nuevoitem.precio = evt.currentTarget.precio
+            nuevoitem.nombre = evt.currentTarget.nombre
+            nuevoitem.imagen = evt.currentTarget.imagen
+            nuevoitem.tipo = evt.currentTarget.tipo
+
+
+
+
+            var item = document.getElementById("productosencarrito")
+            var valor = carrito.length
+            var value = item.setAttribute("data-value", valor);
+            document.getElementById("productosencarrito").innerHTML = valor;
+
+
+           //
+
+            carrito.push(nuevoitem)
+
+            
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            carrofinal = JSON.parse(localStorage.getItem('carrito'))
+
+            total = 0
+            
+            carrofinal.forEach(
+                item => {
+                    total = parseInt(item.precio) + parseInt(total)
+                }
+            )
+
+            if (carrofinal != null){
+                    document.getElementById("productosencarrito").innerHTML = carrofinal.length ;
+                }
+    
+
+            localStorage.setItem('total', total)
+
+        }
+
+        function getCarrito() {
+            const basejson = localStorage.getItem('carrito')
+            if (basejson != "") {
+                var baseDeDatos = JSON.parse(basejson)
+                if (baseDeDatos != null){
+                    document.getElementById("productosencarrito").innerHTML = baseDeDatos.length ;
+                }
+                
+            }
+
+
+        }
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+    </script>
+</body>
+
+</html>

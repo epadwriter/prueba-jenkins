@@ -1,0 +1,143 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.4.5/themes/satellite-min.css"
+        integrity="sha256-TehzF/2QvNKhGQrrNpoOb2Ck4iGZ1J/DI4pkd2oUsBc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+
+<body>
+
+
+    <a href="/">atras</a>
+    <header class="container">
+        <div id="search-box"></div>
+        <div id="brand"></div>
+        <div id="numeric-menu"></div>
+        <a href="carrito.html">
+            items en el carrito
+            <div class="numberCircle" id="productosencarrito" data-value="0">0</div>
+            <img src="Images/carrito.png" alt="Carro de compra" width="40px">
+        </a>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="col-md-3">
+                <div id="hits"></div>
+            </div>
+            
+            <div id="pagination"></div>
+        </div>
+    </main>
+
+    <script type="text/html" id="hit-template">
+        <div class="hit">
+
+            <div class="hit-image">
+                <img src="{{imagen}}" class="img img-fluid">
+            </div>
+            <p class="hit-name">
+                {{#helpers.highlight}}{ "attribute": "nombre" }{{/helpers.highlight}}
+                {{#helpers.highlight}}{ "attribute": "precio" }{{/helpers.highlight}}
+                <br>
+                <button class="btn btn-primary" onclick="agregar({{id}})" id="{{id}}"
+                precio="{{precio}}"
+                nombre="{{nombre}}"
+                tipo="{{tipo}}"
+                imagen="{{imagen}}"
+
+                >Agregar</button>
+                
+            </p>
+
+        </div>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
+        integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
+        integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
+   
+
+    
+
+    <script>
+         getCarrito();
+        var carrito = [];
+        function agregar(evt) {
+
+            carrito = JSON.parse(localStorage.getItem('carrito'))
+            if (carrito == null) {
+                carrito = [];
+            }
+            nuevoitem = {}
+            nuevoitem.id = uuidv4()
+
+            element = document.getElementById(evt)
+            nuevoitem.precio = element.getAttribute("precio")
+            nuevoitem.nombre =  element.getAttribute("nombre")
+            nuevoitem.imagen = element.getAttribute("imagen")
+            nuevoitem.tipo =   element.getAttribute("tipo")
+            console.log(nuevoitem)
+
+
+
+            var item = document.getElementById("productosencarrito")
+            var valor = carrito.length
+            var value = item.setAttribute("data-value", valor);
+            document.getElementById("productosencarrito").innerHTML = valor;
+
+
+           //
+
+            carrito.push(nuevoitem)
+
+            
+
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            carrofinal = JSON.parse(localStorage.getItem('carrito'))
+
+            total = 0
+            
+            carrofinal.forEach(
+                item => {
+                    total = parseInt(item.precio) + parseInt(total)
+                }
+            )
+
+            if (carrofinal != null){
+                    document.getElementById("productosencarrito").innerHTML = carrofinal.length ;
+                }
+    
+
+            localStorage.setItem('total', total)
+
+        }
+
+        function getCarrito() {
+            const basejson = localStorage.getItem('carrito')
+            if (basejson != "") {
+                var baseDeDatos = JSON.parse(basejson)
+                if (baseDeDatos != null){
+                    document.getElementById("productosencarrito").innerHTML = baseDeDatos.length ;
+                }
+                
+            }
+
+
+        }
+
+        function uuidv4() {
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</body>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<script>
+    window.onload = function () {
+        // Variables
+
+
+
+
+        const DOMcompras = document.querySelector('#compras');
+
+
+        const basejson = localStorage.getItem('carrito')
+        const baseDeDatos = JSON.parse(basejson)
+
+        const total =  JSON.parse(localStorage.getItem('total'))
+        document.getElementById('total').innerHTML = total
+
+
+        console.log(baseDeDatos)
+
+        function renderizarCarrito() {
+
+
+            var table = document.createElement('table');
+            table.classList.add('table');
+            document.body.appendChild(table);
+
+            var tr = document.createElement('tr');
+            table.appendChild(tr);
+
+            var tdElement = document.createElement('th');
+            tdElement.innerHTML = "producto"
+
+            var tdElement3 = document.createElement('th');
+            tdElement3.innerHTML = "tipo"
+
+
+            tr.appendChild(tdElement);
+            tr.appendChild(tdElement3);
+
+
+
+            baseDeDatos.forEach((info) => {
+                console.log(info)
+                var tr = document.createElement('tr');
+                tr.setAttribute("id", "tr" + info.id);
+                table.appendChild(tr);
+                var tdElement = document.createElement('td');
+                tdElement.innerHTML = info.nombre
+
+                var tdElement2 = document.createElement('td');
+                tdElement2.innerHTML = info.tipo
+
+
+
+
+
+                tr.appendChild(tdElement);
+              
+                tr.appendChild(tdElement2);
+            })
+
+            DOMcompras.appendChild(table);
+        };
+
+
+
+
+        renderizarCarrito();
+    }
+</script>
+<body>
+        <br>
+    <div class="container">
+        <h1>Compra exitosa!</h1>
+        <br>
+        <h4>productos comprados</h4>
+        <div id="compras">
+
+        </div>
+
+        <div>
+            <h3>
+            <p>Total</p>
+            <div id="total"></div>
+        </h3>
+        </div>
+        
+
+    </div>
+
+</body>
+</html>

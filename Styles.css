@@ -1,0 +1,299 @@
+body {
+    background-color: #28475c !important;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1300px;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
+    
+}
+
+header {
+    display: flex;
+    background-color: white;
+    height: 150px;
+    padding-left: 50px;
+    padding-right: 50px;   
+    padding-top: 10px;
+}
+
+.CarroCompra {
+    text-align: right;
+    width: 1300px; height: 100px;
+}
+
+nav {
+    text-align: right;
+    margin-top: -50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #28475c;
+    padding-right: 50px;   
+    padding-left: 40px; 
+    font-size: 14px;
+    display: inline-block;
+}
+
+nav a:hover{
+    color: #73ccfd;
+    transition: .3s;
+}
+
+nav a::after{
+    content:'';
+}
+    
+.nav-bar::after {
+    content:'';
+    display: block;
+    width: 0;   
+    height: 2px;    
+    background: #28475c;
+    transition: width .3s;
+}
+
+.nav-bar:hover::after {
+    width: 100%;
+    transition: width .3s;
+    color: aliceblue;
+}
+
+.Inicio {
+    background-color:#28475c;
+    background-image: url(images/portada.jpg);
+    background-size: cover;
+    height: 700px;  
+    margin-top: -28px;
+    padding-left: 70px;
+}
+
+.Inicio h1 {
+    font-size: 40px;
+    color: white;
+    padding-top: 300px;
+    line-height: 70px;
+}
+
+button {
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;    
+}
+
+button:hover{
+    color: #28475c;
+    background-color: #73cdfd71;
+    transition: .5s;
+}
+
+button::after{
+    content: '';
+}
+
+.Nosotros {
+    background-color: #28475c;
+    padding-left: 30px;
+    display: flex;
+}
+
+.Nosotros h1 {
+    color: #73ccfd;
+    padding-top: 30px;
+    padding-left: 50px;
+    font-size: 30px;    
+}
+
+.Nosotros p {
+    color: white;
+    font-size: 22px;
+    padding: 100px 0px 50px 100px;
+    line-height: 45px;
+    font-weight: bold;
+}
+
+.Nosotros img {
+    padding-top: 120px;
+    margin-left: -200px;
+}
+
+.Servicios {
+    background-color: white;
+    padding-bottom: 50px;
+}
+
+.Servicios h1 {
+    color: #28475c;
+    padding-top: 50px;
+    padding-left: 80px;
+    font-size: 30px;
+}
+
+#ServiciosImages {
+    display: flex;
+    flex-flow: inherit;
+    padding: 50px;
+    text-align: center;
+}
+
+.img-servicios {
+    margin: auto;
+    width: 250px;
+    height: auto;     
+}
+
+.Servicios button {
+    width: 250px;
+    height: 50px;
+
+    color: white;      
+}
+
+.Servicios button:hover{
+    background-color: #28475c;
+    transition: .5s;
+}
+
+.Servicios button::after{
+    content:'';
+}
+
+.Productos {
+    background-color: white;
+    padding-bottom: 50px;
+    font-weight: bold;
+    color: red;
+}
+
+.Productos h1 {
+    color: #28475c;
+    padding-top: 30px;
+    padding-left: 80px;
+    font-size: 30px;
+}
+
+#ProductosImages {
+    display: flex;
+    flex-flow: row wrap;
+    text-align: center;
+}
+
+.img-productos {
+    width: 250px;
+    height: auto;
+    padding: 90px;   
+    padding-top: 20px;
+    padding-bottom: 5px;    
+}
+
+.Productos button {
+    width: 200px;
+    height: 30px;
+    background-color: #73ccfd;
+    color: white;
+    padding: 5px;      
+}
+
+.Productos button:hover{
+    background-color: #28475c;
+    transition: .5s;
+}
+
+.Productos button::after{
+    content:'';
+}
+
+.Contáctanos {
+    background-color:  #28475c;
+    background-image: url(Images/ContactanosFondo.jpg);
+    background-size: cover;
+    margin-top: -30px;
+    padding-bottom: 50px;
+    min-height: 350px;
+    
+}
+
+.Contáctanos h1 {
+    color: #73ccfd;
+    padding-top: 30px;
+    padding-left: 80px;
+    font-size: 30px;
+}
+
+.cajaContacto {
+    width: 85%;
+    max-width: 800px;
+    margin-left: 250px;
+}
+
+.txtb {
+    margin: 10px 0;
+    padding: 12px 18px;
+    border-radius: block;
+}
+
+.txtb label {
+    display: block;
+    text-align: left;
+    color: white;
+    font-weight: bold;
+    }
+
+    .txtb input, .txtb textarea {
+        width: 100%;
+        border: 1px;
+        background: white;
+        font-size: 15px;
+        margin-top: 10px;
+        padding: 10px;   
+    }
+
+    .Contáctanos button {
+        width: 150px;
+        height: 30px;
+        background-color: #73ccfd;
+        color: white;
+        padding: 5px;  
+        margin-left: 20px;
+            
+    }
+    
+    .Contáctanos button:hover{
+        background-color: #28475c;
+        transition: .5s;
+    }
+    
+    .Contáctanos button::after{
+        content:'';
+    }
+
+footer {
+    background-color: #122029c9;
+    margin-top: 5px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+}
+
+.numberCircle {
+    background-color: red;
+    padding: 0.5rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}

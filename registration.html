@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "UTF-8">
+	<title> My Form </title>
+	<style>
+		#mylink{
+			font-size: 25px;
+		}
+	</style>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="container">
+	<br>
+        <header>
+		<h1>Registrarse</h1>
+	</header>
+
+	<form action="register" class="form" method="POST">
+		<fieldset>
+			<label>Usuario</label>
+			<input type ="text" id = 'username' name="username" placeholder="usuario" required>
+			<br><br>
+
+			<label>Email</label>
+			<input type ="email" id = 'email' name="email" placeholder="abc@ejemplo.com" required>
+			<br><br>
+
+			<label>Contrasena</label>
+			<input type="password" id = "password" name="password" required>
+			<br><br>
+
+
+			<button  class="btn btn-success" type ="submit">Registrarse</button>
+		</fieldset>
+	</form>
+	<br><br>
+        <a id="mylink" class="btn btn-primary" href="./login.html">Login</a>
+    
+</body>
+</html>
